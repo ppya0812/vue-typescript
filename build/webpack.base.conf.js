@@ -3,7 +3,8 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: './src/index.ts'
+    app: './src/index.ts',
+    detail: './src/detail.ts'
   },
 // 会将 process.env.NODE_ENV 的值设为 development: 启用 NamedChunksPlugin 和 NamedModulesPlugin。
 // production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 UglifyJsPlugin
@@ -56,6 +57,11 @@ module.exports = {
   },
   performance: {
     hints: false
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
   }
 }
 

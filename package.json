@@ -4,8 +4,11 @@
   "description": "typescript vue",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --color --inline --progress --config build/webpack.dev.conf.js",
-    "build": "webpack --config build/webpack.prod.conf.js"
+    "dev": "webpack-dev-server --color --inline --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "build": "webpack --config build/webpack.prod.conf.js",
+    "devServer": "node build/dev-server.js",
+    "mock": "puer -r mock/mock-server.js"
   },
   "keywords": [
     "typescript",
@@ -15,9 +18,16 @@
   "license": "ISC",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
+    "connect": "^3.6.6",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
+    "express": "^4.16.3",
     "html-webpack-plugin": "^3.2.0",
+    "http": "^0.0.0",
+    "http-proxy-middleware": "^0.19.0",
+    "opn": "^5.3.0",
+    "path": "^0.12.7",
+    "puer": "^2.0.1",
     "ts-loader": "^5.1.1",
     "typescript": "^3.0.3",
     "uglifyjs-webpack-plugin": "^2.0.1",
@@ -25,10 +35,13 @@
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.19.1",
+    "webpack-dev-middleware": "^3.3.0",
     "webpack-dev-server": "^3.1.8",
+    "webpack-hot-middleware": "^2.24.0",
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "puer": "^2.0.1",
     "vue-property-decorator": "^7.0.0"
   }
 }

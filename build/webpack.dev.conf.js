@@ -18,8 +18,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     hot: true,
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
-      ],
+        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') }
+      ]
     },
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true, // gzip压缩

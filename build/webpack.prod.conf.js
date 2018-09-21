@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin') // 通过 npm 安装
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 const config = require('./config.js')
 const baseWebpackConfig = require('./webpack.base.conf')
@@ -37,9 +37,9 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new UglifyJSPlugin({
-      sourceMap: true
-    }),
+    // new UglifyJSPlugin({
+    //   sourceMap: true
+    // }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')  // 其他library用
     })
