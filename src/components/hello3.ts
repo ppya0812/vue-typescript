@@ -1,22 +1,22 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class HelloDecorator extends Vue {
-    @Prop() name!: string;
-    @Prop() initialEnthusiasm!: number;
+  @Prop() name!: string
+  @Prop() initialEnthusiasm!: number
 
-    enthusiasm = this.initialEnthusiasm;
+  enthusiasm = this.initialEnthusiasm
 
-    increment() {
-        this.enthusiasm++;
+  increment() {
+    this.enthusiasm++
+  }
+  decrement() {
+    if (this.enthusiasm > 1) {
+      this.enthusiasm--
     }
-    decrement() {
-        if (this.enthusiasm > 1) {
-            this.enthusiasm--;
-        }
-    }
+  }
 
-    get exclamationMarks(): string {
-        return Array(this.enthusiasm + 1).join('!');
-    }
+  get exclamationMarks(): string {
+    return Array(this.enthusiasm + 1).join('!')
+  }
 }

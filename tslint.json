@@ -1,0 +1,49 @@
+{
+  // https://palantir.github.io/tslint/rules/
+  "defaultSeverity": "error",
+  // "extends": "tslint-config-standard",
+  "globals": {
+    "require": true,
+    "Vue": true
+  },
+  "extends": [
+    "tslint:recommended"
+  ],
+  // "jsRules": {},
+  "rules": {
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "indent": [
+      true
+    ],
+    "interface-name": [
+      false
+    ],
+    "semicolon":[true, "never", "ignore-interfaces"], //分号的使用规则
+    "arrow-parens": false,
+    // Pending fix for shorthand property names.
+    "object-literal-sort-keys": false,
+    "space-before-function-paren": [true, "asyncArrow"],
+    "whitespace": [false],
+    "no-consecutive-blank-lines": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-empty-character-class": false,
+    "no-debugger": false,
+    // "no-unused-expression": true, // 禁止无用的表达式
+    // "no-unused-variable": true, // 禁止无用的变量
+    // "no-parameter-reassignment": true,
+    "no-var-keyword": true,
+    "trailing-comma": [true, { //对尾随逗号的校验
+      "multiline": {
+          "objects": "ignore",
+          "arrays": "never",
+          "functions": "never",
+          "typeLiterals": "ignore"
+      },
+      "esSpecCompliant": true //是否允许尾随逗号出现在剩余变量中
+    }]
+  },
+  "rulesDirectory": []
+}

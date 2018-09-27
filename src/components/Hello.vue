@@ -1,26 +1,26 @@
+<template>
+    <div>
+        <div class="hello">哈哈哈</div>
+    </div>
+</template>
+
+<script lang="ts">
 import Vue from 'vue'
 
 export default Vue.extend({
-  template: `
-    <div>
-      <div>Index {{name}}{{exclamationMarks}}</div>
-      <button @click="decrement">-</button>
-      <button @click="increment">+</button>
-    </div>
-  `,
   props: ['name', 'initialEnthusiasm'],
   data() {
     return {
-      enthusiasm: this.initialEnthusiasm,
+      enthusiasm: this.initialEnthusiasm
     }
   },
   methods: {
     increment() { this.enthusiasm ++ },
     decrement() {
       if (this.enthusiasm > 1) {
-        this.enthusiasm --
+        this.enthusiasm--
       }
-    },
+    }
   },
   computed: {
     exclamationMarks(): string {
@@ -28,3 +28,13 @@ export default Vue.extend({
     }
   }
 })
+</script>
+
+<style lang="less">
+@import '../common.less';
+
+.hello {
+    font-size: 20px;
+    color: red;
+}
+</style>

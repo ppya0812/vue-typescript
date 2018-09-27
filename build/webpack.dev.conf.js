@@ -2,13 +2,19 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 const config = require('./config.js')
-const baseWebpackConfig = require('./webpack.base.conf')
+let baseWebpackConfig = require('./webpack.base.conf')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+
+// Object.keys(baseWebpackConfig.entry).forEach(function (name) {
+//   baseWebpackConfig.entry[name] = [
+//     'vue'
+//   ].concat(baseWebpackConfig.entry[name])
+// })
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   devtool: config.dev.devtool,
@@ -21,7 +27,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') }
       ]
     },
-    contentBase: false, // since we use CopyWebpackPlugin.
+    contentBase: path.join(__dirname, '../dist'), // since we use CopyWebpackPlugin.
     compress: true, // gzip压缩
     host: HOST || config.dev.host,
     port: PORT || config.dev.port,
@@ -35,7 +41,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll, // 获取文件改动的通知。轮询
     },
-    // contentBase: path.join(__dirname, 'dist'),
     // openPage: '',
     // after: app => {
     //   // 做些有趣的事
@@ -47,19 +52,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.HotModuleReplacementPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
-    // copy custom static assets
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: path.resolve(__dirname, '../static'),
-    //     to: config.dev.assetsSubDirectory,
-    //     ignore: ['.*']
-    //   }
-    // ])
+    ...Object.keys(baseWebpackConfig.entry).map(item =>
+      new HtmlWebpackPlugin({
+        title: item,
+        filename: item + '.html',
+        template: 'index.html',
+        inject: true,
+        chunks: [item]
+      }),
+    ),
+    new FriendlyErrorsPlugin()
   ]
 })
 
