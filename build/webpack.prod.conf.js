@@ -4,9 +4,9 @@ const merge = require('webpack-merge')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const utils = require('./utils')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const utils = require('./utils')
 
 const config = require('./config.js')
 let baseWebpackConfig = require('./webpack.base.conf')
@@ -25,10 +25,14 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[name].[chunkhash:5].js') // 非入口 chunk 的名称。
   },
   optimization: {
+    // removeAvailableModules: false,
+    // removeEmptyChunks: false,
     // chunk for the webpack runtime code and chunk manifest
     runtimeChunk: {
       name: 'manifest'
     },
+    noEmitOnErrors: true, // NoEmitOnErrorsPlugin
+    concatenateModules: true,
     // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
     splitChunks: {
       chunks: 'all',
@@ -58,6 +62,24 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
     new CleanWebpackPlugin(['dist'], {
       root: path.join(__dirname, '..')
     }),
+    new OptimizeCSSPlugin(
+      // {
+      // assetNameRegExp: /\.css\.*(?!.*map)/g,  //注意不要写成 /\.css$/g
+      // cssProcessor: require('cssnano'),
+      // cssProcessorOptions: {
+      //     discardComments: { removeAll: true },
+      //     // 避免 cssnano 重新计算 z-index
+      //     safe: true,
+      //     // cssnano 集成了autoprefixer的功能
+      //     // 会使用到autoprefixer进行无关前缀的清理
+      //     // 关闭autoprefixer功能
+      //     // 使用postcss的autoprefixer功能
+      //     autoprefixer: false
+      // },
+      // canPrint: true
+      // minimize: true
+    // }
+    ),
     ...Object.keys(baseWebpackConfig.entry).map(item =>
       new HtmlWebpackPlugin({
         title: item,
@@ -78,15 +100,12 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
     ),
     new webpack.HashedModuleIdsPlugin(),
     //静态资源输出,将src目录下的assets文件夹复制到dist目录下
-      new CopyWebpackPlugin([{
-        from: path.resolve(__dirname, '../src/assets'),
-        to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }])
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, '../src/assets'),
+      to: config.build.assetsSubDirectory,
+      ignore: ['.*']
+    }])
     // new webpack.HotModuleReplacementPlugin(), // 会影响chunkhash
-    // new UglifyJSPlugin({
-    //   sourceMap: true
-    // }),
   ]
 })
 

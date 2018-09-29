@@ -10,19 +10,19 @@
     "sourceMap": true,
     "strict": true, // 启用所有严格类型检查选项
     "noImplicitAny": true,  // 为true时，将进行强类型检查，无法推断类型时，提示错误。
-    "module": "es2015",
+    "module": "es6",
     // "module": "esnext",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6", // 编译成 ES2015 (Babel 将做剩下的事情)
     "experimentalDecorators": true,
     "noImplicitReturns": true,  // true 时，不是函数的所有返回路径都有返回值时报错
     "removeComments": true, // 编译生成的 JavaScript 文件是否移除注释
     "pretty": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
       "@/*": ["src/*"]
     },
-    "jsx": "preserve",
+    "jsx": "preserve", // 开启 JSX 模式, 但是 "preserve" 告诉 TypeScript 不要转换它(我们将使用 Babel)
     "jsxFactory": "h",
     "allowSyntheticDefaultImports": true,
     "allowJs": true,

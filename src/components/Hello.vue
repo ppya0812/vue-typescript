@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="hello">哈哈哈</div>
+        <div class="hello">1111111111</div>
     </div>
 </template>
 
@@ -35,6 +35,7 @@ export default Vue.extend({
 
 .hello {
     font-size: 20px;
-    color: red;
+    color: orangered;
+    display: flex;
 }
 </style>

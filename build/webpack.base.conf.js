@@ -5,6 +5,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const config = require('./config.js')
 const utils = require('./utils')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+// const { CheckerPlugin } = require('awesome-typescript-loader')
 
 module.exports = {
   entry: {
@@ -18,15 +20,33 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+        include: [utils.resolve('src')]
       },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
+        include: [utils.resolve('src')],
+        // loader: 'happypack/loader?id=happyBabel'
+        // loader: 'awesome-typescript-loader'
         use: [
-          "babel-loader",
+          // 保存和读取这些缓存文件会有一些时间开销，所以请只对性能开销较大的 loader 使用此 loader。
+          // postinstall清除
+          'cache-loader', // 节省近1000ms 将结果缓存到磁盘里
+          // {
+          //   loader: 'thread-loader',
+          //   options: {
+          //       workers: require('os').cpus().length - 1,
+          //   },
+          // },
+          'babel-loader',
           {
-            loader: "ts-loader",
-            options: { appendTsxSuffixTo: [/\.vue$/] }
+            loader: 'ts-loader',
+            options: {
+              appendTsxSuffixTo: [/\.vue$/],
+              transpileOnly: true, // 快速增量构建
+              // 使用 TypeScript 内置 watch mode API，可以明显减少每次迭代时重新构建的模块数量
+              experimentalWatchApi: true,
+            }
           },
           {
             loader: 'tslint-loader'
@@ -36,16 +56,15 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         include: [utils.resolve('src'), utils.resolve('test')]
       },
       {
         test: /\.(css|less|scss|sass)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader', 'sass-loader', 'postcss-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader', 'sass-loader', 'postcss-loader'],
+        exclude: /node_modules/,
+        include: [utils.resolve('src')]
       },
-      // {
-      //   test: /\.(css|less|scss|sass)$/,
-      //   use: ['style-loader', 'css-loader', 'less-loader', 'sass-loader', 'postcss-loader']
-      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
@@ -83,6 +102,7 @@ module.exports = {
     hints: false
   },
   plugins: [
+    // new ForkTsCheckerWebpackPlugin(), // 另起线程处理tslint校验,会慢1000ms左右
     new VueLoaderPlugin(),
     new webpack.ProvidePlugin({
       _: 'lodash',

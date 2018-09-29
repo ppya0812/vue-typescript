@@ -23,7 +23,7 @@
     ],
     "semicolon":[true, "never", "ignore-interfaces"], //分号的使用规则
     "arrow-parens": false,
-    // Pending fix for shorthand property names.
+    // 这个规则强制对象中的 key 按照字母顺序排列
     "object-literal-sort-keys": false,
     "space-before-function-paren": [true, "asyncArrow"],
     "whitespace": [false],
