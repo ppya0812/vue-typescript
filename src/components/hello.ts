@@ -3,7 +3,7 @@ import Vue from 'vue'
 export default Vue.extend({
   template: `
     <div>
-      <div>Index {{name}}{{exclamationMarks}}</div>
+      <div>Index pgae {{name}}{{exclamationMarks}}</div>
       <button @click="decrement">-</button>
       <button @click="increment">+</button>
     </div>

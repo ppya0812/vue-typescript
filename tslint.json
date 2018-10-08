@@ -4,7 +4,8 @@
   // "extends": "tslint-config-standard",
   "globals": {
     "require": true,
-    "Vue": true
+    "Vue": true,
+    "@": true
   },
   "extends": [
     "tslint:recommended"
@@ -43,7 +44,8 @@
           "typeLiterals": "ignore"
       },
       "esSpecCompliant": true //是否允许尾随逗号出现在剩余变量中
-    }]
+    }],
+    "no-console": false
   },
   "rulesDirectory": []
 }

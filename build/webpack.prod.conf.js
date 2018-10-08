@@ -5,11 +5,20 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin)
 
 const utils = require('./utils')
 
 const config = require('./config.js')
 let baseWebpackConfig = require('./webpack.base.conf')
+
+// const UglifyJS = require('uglify-es')
+// const DefaultUglifyJsOptions = UglifyJS.default_options()
+// const compress = DefaultUglifyJsOptions.compress
+// for(let compressOption in compress) {
+//     compress[compressOption] = false
+// }
+// compress.unused = true
 
 // Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 //   baseWebpackConfig.entry[name] = [
@@ -24,6 +33,21 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
     filename: utils.assetsPath('js/[name].[chunkhash:5].js'),
     chunkFilename: utils.assetsPath('js/[name].[chunkhash:5].js') // 非入口 chunk 的名称。
   },
+  // optimization: {
+  //   // test 
+  //   minimize: true,
+  //   minimizer: [
+  //     new UglifyJsPlugin({
+  //       uglifyOptions: {
+  //         compress,
+  //         mangle: false,
+  //         output: {
+  //             beautify: true
+  //         }
+  //       },
+  //     }),
+  //   ]
+  // },
   optimization: {
     // removeAvailableModules: false,
     // removeEmptyChunks: false,

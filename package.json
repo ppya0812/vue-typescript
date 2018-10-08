@@ -18,6 +18,10 @@
   "author": "ppya0812@163.com",
   "license": "ISC",
   "postinstall": {},
+  "sideEffects": [
+    "*.less",
+    "*.css"
+  ],
   "devDependencies": {
     "autoprefixer": "^9.1.5",
     "awesome-typescript-loader": "^5.2.1",
@@ -67,6 +71,7 @@
     "tslint-config-standard": "^8.0.1",
     "tslint-loader": "^3.6.0",
     "typescript": "^3.0.3",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.1.1",
     "vue": "^2.5.17",
     "vue-loader": "^15.4.2",

@@ -10,8 +10,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: {
-    index: './src/index.ts',
-    detail: './src/detail.ts'
+    index: './src/page/index.ts',
+    detail: './src/page/detail.ts'
   },
 // 会将 process.env.NODE_ENV 的值设为 development: 启用 NamedChunksPlugin 和 NamedModulesPlugin。
 // production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 UglifyJsPlugin
@@ -20,7 +20,13 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        include: [utils.resolve('src')]
+        include: [utils.resolve('src')],
+        options: {
+          loaders: {
+            ts: 'ts-loader',
+            tsx: 'babel-loader!ts-loader'
+          }
+        }
       },
       {
         test: /\.tsx?$/,
@@ -94,8 +100,8 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': utils.resolve('src')
+      '@': utils.resolve('src'),
+      'vue': 'vue/dist/vue.esm.js'
     }
   },
   performance: {
